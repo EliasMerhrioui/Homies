@@ -29,59 +29,23 @@
 					<h2 v-html="article['32'].title.rendered"/>
 					<div v-html="article['32'].content.rendered"/>
 				</div>
-				
 			</div>			
-				
-			
-			
-
 		</div>
-		<!-- <flag-vue/>
-		<senior-vue/> -->
 	</div>
 </template>
 
 <script>
-// import SeniorVue from '@/components/Horaires/seniorVue.vue';
-// import FlagVue from '../components/Horaires/flagVue.vue';
 	/* eslint-disable no-console */
 	/* eslint-disable no-unused-vars */
 	/* eslint-disable no-mixed-spaces-and-tabs */
 
-	
-	/* 
-		[VUE] Main imports
-		Define main imports to create the application
-	*/
- 
-
-	/*
-		[VUE] Component
-		Define properties and methods => https://bit.ly/3GdqmXg
-	*/
 		export default {
 			// [VUE] Component name
 			name: 'ScheduleView',
 
-			/*
-				[VUE] Components => https://bit.ly/3GdqmXg
-				Used to inject children components
-			*/
-				// components: {FlagVue, SeniorVue },
-			//
-
-			/*
-				[VUE] Computed => https://vuejs.org/guide/essentials/computed.html
-				Used to define simple in-template expression, 
-				the expression below bind values from Store getters
-			*/
+		
 				computed: {},
-			//
-
-			/*
-				[VUE] Data => https://bit.ly/3GdqmXg
-				Used to inject data in the Vue.js component
-			*/
+			
 				data(){
 					return {
 						article: {
@@ -135,26 +99,6 @@
 					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/38`, 38)
 					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/32`, 32)
 					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/35`, 35)
-					//  fetch(`https://homies.v-info.info/wp-json/wp/v2/posts`, {
-                    //  method: 'GET'
-					//  })
-					//  .then( apiResponse => {
-					//  	if( apiResponse.ok ){ return apiResponse.json() }
-					//  	else{ throw apiResponse } 
-					//  })
-					//  .then( jsonResponse => {
-					//  	console.log(jsonResponse)
-		
-					//  		this.pagesContent = jsonResponse.content.rendered
-					//  		this.pagesTitle = jsonResponse.title.rendered
-				
-						
-					//  	})
-					//  .catch( apiError => {
-					//  	console.log('apiError', apiError)
-					//  });
-					
-					
 				},
 			//
 		}

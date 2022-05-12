@@ -2,45 +2,42 @@
 	<div 
 		class="location-view-component"
 	>
-	<div class="columns is-multiline">
-		<div class="column is-one-third">
-			<h1
-				v-if="pagesTitle"
-				v-html="pagesTitle"
-			/>
-
-			<!-- CONTENU DE LA PAGES -->
-			<div
-				v-if="pagesContent"
-				v-html="pagesContent"
-			/>
+		<div
+			class="column is-one-third" 
+			v-if="article['16']"
+		>
+			<div class="text-align-center" v-html="article['16'].title.rendered"/>
+			<div v-html="article['16'].content.rendered"/>
 		</div>
-		<div class="column is-one-third">
-			<h1
-				v-if="pagesTitle"
-				v-html="pagesTitle"
-			/>
-
-			<!-- CONTENU DE LA PAGES -->
-			<div
-				v-if="pagesContent"
-				v-html="pagesContent"
-			/>
+		<div class="columns has-text-centered">
+			<div 
+				class="column is-one-third" 
+				v-if="article['50']" 
+			>
+				<div class="box">
+					<h2 class="title is-size-6" v-html="article['50'].title.rendered"/>
+					<div v-html="article['50'].content.rendered"/>
+				</div>
+			</div>	
+			<div 
+				class="column is-one-third" 
+				v-if="article['48']" 
+			>
+				<div class="box">
+					<h2 v-html="article['48'].title.rendered"/>
+					<div v-html="article['48'].content.rendered"/>
+				</div>
+			</div>	
+			<div 
+				class="column is-one-third" 
+				v-if="article['46']" 
+			>
+				<div class="box">
+					<h2 v-html="article['46'].title.rendered"/>
+					<div v-html="article['46'].content.rendered"/>
+				</div>
+			</div>			
 		</div>
-		<div class="column is-one-third">
-			<h1
-				v-if="pagesTitle"
-				v-html="pagesTitle"
-			/>
-
-			<!-- CONTENU DE LA PAGES -->
-			<div
-				v-if="pagesContent"
-				v-html="pagesContent"
-			/>
-		</div>
-		
-	</div>
 	</div>
 </template>
 
@@ -59,31 +56,41 @@
 			
 				data(){
 					return {
-						pagesContent: undefined,
-						pagesTitle: undefined,
+						article: {
+							50: undefined,
+							48: undefined,
+							46: undefined,
+							16: undefined,
+						}	
 					}
 				},
 	
-                methods: {},
+                methods: {
+					fetchMethod:function(path, id){
+						fetch(path, {
+						method: 'GET'
+						})
+						.then( apiResponse => {
+							if( apiResponse.ok ){ return apiResponse.json() }
+							else{ throw apiResponse } 
+						})
+						.then( jsonResponse => {
+							this.article[id] = jsonResponse
+							console.log(this.article);
+						})
+						.catch( apiError => {
+							console.log('apiError', apiError)
+						});
+					}
+				},
             
 				created: function(){},
 			
 				mounted: function(){
-					fetch( `http://homies.local/wp-json/wp/v2/pages/799`, {
-                    method: 'GET'
-					})
-					.then( apiResponse => {
-						if( apiResponse.ok ){ return apiResponse.json() }
-						else{ throw apiResponse } 
-					})
-					.then( jsonResponse => {
-						console.log(jsonResponse)
-						this.pagesContent = jsonResponse.content.rendered
-						this.pagesTitle = jsonResponse.title.rendered
-					})
-					.catch( apiError => {
-						console.log('apiError', apiError)
-					});
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/50`, 50)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/48`, 48)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/46`, 46)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/pages/16`, 16)
 				},
 			
 		}
