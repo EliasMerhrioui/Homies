@@ -3,19 +3,19 @@
 		class="location-view-component"
 	>
 		<div
-			class="column is-one-third" 
 			v-if="article['16']"
 		>
-			<div class="text-align-center" v-html="article['16'].title.rendered"/>
-			<div v-html="article['16'].content.rendered"/>
+			<div class="title" v-html="article['16'].title.rendered"/>
+			<div class="contentHowToCome" v-html="article['16'].content.rendered"/>
 		</div>
+		
 		<div class="columns has-text-centered">
 			<div 
 				class="column is-one-third" 
 				v-if="article['50']" 
 			>
 				<div class="box">
-					<h2 class="title is-size-6" v-html="article['50'].title.rendered"/>
+					<h2 class="subtitle" v-html="article['50'].title.rendered"/>
 					<div v-html="article['50'].content.rendered"/>
 				</div>
 			</div>	
@@ -24,7 +24,7 @@
 				v-if="article['48']" 
 			>
 				<div class="box">
-					<h2 v-html="article['48'].title.rendered"/>
+					<h2 class="subtitle"  v-html="article['48'].title.rendered"/>
 					<div v-html="article['48'].content.rendered"/>
 				</div>
 			</div>	
@@ -33,7 +33,7 @@
 				v-if="article['46']" 
 			>
 				<div class="box">
-					<h2 v-html="article['46'].title.rendered"/>
+					<h2 class="subtitle"  v-html="article['46'].title.rendered"/>
 					<div v-html="article['46'].content.rendered"/>
 				</div>
 			</div>			
@@ -47,7 +47,6 @@
 	/* eslint-disable no-mixed-spaces-and-tabs */
 
 		export default {
-			
 			name: 'LocationView',
 
 				components: {  },

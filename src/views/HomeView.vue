@@ -14,12 +14,17 @@
 			v-html="pagesContent"
 		/>
 
-		<!-- VIDEO YOUTUBE -->
-		<YouTube 
-		v-if="videoId"
-        :src="`https://www.youtube.com/watch?v=${videoId}`"
-        @ready="onReady"
-        ref="youtube" />
+		
+			<YouTube 
+			class="youtubeVideoHomeView"
+			v-if="videoId"
+			:src="`https://www.youtube.com/watch?v=${videoId}`"
+			@ready="onReady"
+			ref="youtube" />
+		
+			
+			<!-- VIDEO YOUTUBE -->
+			
 	</div>
 </template>
 

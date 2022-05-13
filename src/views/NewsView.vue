@@ -2,19 +2,25 @@
 	<div 
 		class="news-view-component"
 	>
-		<div class="content">
-			<!-- TITRE -->
-			<h1
-				v-if="pagesTitle"
-				v-html="pagesTitle"
-			/>
-
-			<!-- CONTENU DE LA PAGES -->
-			<div
-				v-if="pagesContent"
-				v-html="pagesContent"
-			/>
+		<!-- 
+		Catégories :
+		-1 : MATCH SENIOR
+		-11 : Information
+		-8 : ENTRAINEMENT
+		- 
+		-->
+		
+		
+		
+		
+		<div
+			v-if="article['1']"
+		>
+			<div class="title" v-html="article['1'].title.rendered"/>
+			<div class="contentHowToCome" v-html="article['1'].content.rendered"/>
 		</div>
+		
+			
 	</div>
 </template>
 
@@ -22,10 +28,7 @@
 	/* eslint-disable no-console */
 	/* eslint-disable no-unused-vars */
 	/* eslint-disable no-mixed-spaces-and-tabs */
-	/*
-		[VUE] Component
-		Define properties and methods => https://bit.ly/3GdqmXg
-	*/
+	
 		export default {
 			// [VUE] Component name
 			name: 'NewsView',
@@ -51,8 +54,10 @@
 			*/
 				data(){
 					return {
-						pagesContent: undefined,
-						pagesTitle: undefined,
+						article: {
+							1: undefined,
+							
+						}	
 					}
 				},
 			//
@@ -61,7 +66,24 @@
 				[VUE] Methods => https://bit.ly/3GdqmXg
 				Used to add methods in Vue.js component
 			*/
-                methods: {},
+                methods: {
+					fetchMethod:function(path, id){
+						fetch(path, {
+						method: 'GET'
+						})
+						.then( apiResponse => {
+							if( apiResponse.ok ){ return apiResponse.json() }
+							else{ throw apiResponse } 
+						})
+						.then( jsonResponse => {
+							this.article[id] = jsonResponse
+							console.log(this.article);
+						})
+						.catch( apiError => {
+							console.log('apiError', apiError)
+						});
+					}
+				},
             //
 
 			/*
@@ -76,21 +98,7 @@
 				Called after the component has been mounted.
 			*/
 				mounted: function(){
-					fetch( `homies.v-info.info/wp-json/wp/v2/posts/32`, {
-                    method: 'GET'
-					})
-					.then( apiResponse => {
-						if( apiResponse.ok ){ return apiResponse.json() }
-						else{ throw apiResponse } 
-					})
-					.then( jsonResponse => {
-						console.log(jsonResponse)
-						this.pagesContent = jsonResponse.content.rendered
-						this.pagesTitle = jsonResponse.title.rendered
-					})
-					.catch( apiError => {
-						console.log('apiError', apiError)
-					});
+					this.fetchMethod(`homies.v-info.info/wp-json/wp/v2/posts/?categories_exclude=3`, 1)
 				},
 			//
 		}

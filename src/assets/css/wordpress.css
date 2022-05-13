@@ -1,14 +1,42 @@
+/* AppVue CSS */
 
+/* HomeView CSS */
+.home-view-component {
+    text-align: center;  
+}
 
+.youtubeVideoHomeView {
+    margin: 0 auto;
+}
 
+@media screen and (max-width:700px)  {
+    .ytp-cued-thumbnail-overlay-image {
+        position: relative;
+        width: auto;
+    }
+}
+/* HistoryView CSS */
+.history-view-component h1 {
+    text-align: center;
+}
 
-.has-text-align-center {
+/* ScheduleView CSS */
+.title {
     text-align: center;
 
 }
 
-.history-view-component h1 {
-    color: red;
-
+/* LocationView CSS */
+.titleHowToCome {
+    text-align: center;
 }
+
+.contentHowToCome {
+    text-align: center;
+}
+
+
+
+
+
 

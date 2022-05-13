@@ -2,19 +2,61 @@
 	<div 
 		class="history-view-component"
 	>
-		<div class="content">
-			<!-- TITRE -->
-			<h1
-				v-if="pagesTitle"
-				v-html="pagesTitle"
-			/>
+		<div class="columns has-text-centered is-vcentered">
+			<!-- Première colomns (LE NOM DU CLUB, LA CRÉATION À MONTREUIL) -->
+			<div 
+				class="column is-half" 
+				v-if="article['60']" 
+			>
+				<div v-html="article['60'].content.rendered"/>
+			</div>
+			<div 
+				class="column is-half " 
+				v-if="article['57']" 
+			>
+				<!-- LE NOM DU CLUB -->
+				<h2 class="title is-size-6" v-html="article['57'].title.rendered"/>
+				<div v-html="article['57'].content.rendered"/>
 
-			<!-- CONTENU DE LA PAGES -->
-			<div
-				v-if="pagesContent"
-				v-html="pagesContent"
-			/>
+				<!-- LA CRÉATION À MONTREUIL -->
+				<h2 class="title is-size-6" v-html="article['64'].title.rendered"/>
+				<div v-html="article['64'].content.rendered"/>
+
+			</div>
 		</div>
+
+		<div class="columns has-text-centered is-vcentered">
+			<!-- Deuxième columns (ROSNY TERRE PROMISE) -->
+			<div 
+				class="column is-half" 
+				v-if="article['60']" 
+			>
+				<div v-html="article['60'].content.rendered"/>
+			</div>
+			<div 
+				class="column is-half " 
+				v-if="article['66']" 
+			>
+				<!-- LE NOM DU CLUB -->
+				<h2 class="title is-size-6" v-html="article['66'].title.rendered"/>
+				<div v-html="article['66'].content.rendered"/>
+			</div>
+		</div>
+		
+		<div class="columns has-text-centered is-vcentered">
+			<!-- Troisième columns (OBJECTIFS) -->
+			
+			<div 
+				class="column" 
+				v-if="article['68']" 
+			>
+				<!-- LE NOM DU CLUB -->
+				<h2 class="title is-size-6" v-html="article['68'].title.rendered"/>
+				<div v-html="article['68'].content.rendered"/>
+			</div>
+		</div>				
+		
+		
 	</div>
 </template>
 
@@ -22,18 +64,6 @@
 	/* eslint-disable no-console */
 	/* eslint-disable no-unused-vars */
 	/* eslint-disable no-mixed-spaces-and-tabs */
-
-	/* 
-		[VUE] Main imports
-		Define main imports to create the application
-	*/
-    	
-	//
-
-	/*
-		[VUE] Component
-		Define properties and methods => https://bit.ly/3GdqmXg
-	*/
 		export default {
 			// [VUE] Component name
 			name: 'HistoryView',
@@ -61,49 +91,48 @@
 			*/
 				data(){
 					return {
-						pagesContent: undefined,
-						pagesTitle: undefined,
+						article: {
+							60: undefined, //Images, LE NOM DU CLUB
+							57: undefined, //LE NOM DU CLUB
+							64: undefined, //LA CRÉATION À MONTREUIL
+							66: undefined, //ROSNY, TERRE PROMISE 
+							68: undefined, //NOS OBJECTIFS
+							
+							
+							
+							
+						}
 					}
 				},
-			//
-
-			/*
-				[VUE] Methods => https://bit.ly/3GdqmXg
-				Used to add methods in Vue.js component
-			*/
+			
                 methods: {
-					
+					fetchMethod:function(path, id){
+						fetch(path, {
+						method: 'GET'
+						})
+						.then( apiResponse => {
+							if( apiResponse.ok ){ return apiResponse.json() }
+							else{ throw apiResponse } 
+						})
+						.then( jsonResponse => {
+							this.article[id] = jsonResponse
+							console.log(this.article);
+						})
+						.catch( apiError => {
+							console.log('apiError', apiError)
+						});
+					}
 				},
-            //
-
-			/*
-				[VUE] Hooks => https://vuejs.org/api/options-lifecycle.html
-				Called after the instance has finished processing all state-related options.
-			*/
+          
 				created: function(){},
-			//
-
-			/*
-				[VUE] Hooks => https://vuejs.org/api/options-lifecycle.html
-				Called after the component has been mounted.
-			*/
+			
 				mounted: function(){
-					fetch( `http://homies.local/wp-json/wp/v2/pages/807`, {
-                    method: 'GET'
-					})
-					.then( apiResponse => {
-						if( apiResponse.ok ){ return apiResponse.json() }
-						else{ throw apiResponse } 
-					})
-					.then( jsonResponse => {
-						console.log(jsonResponse)
-						this.pagesContent = jsonResponse.content.rendered
-						this.pagesTitle = jsonResponse.title.rendered
-						
-					})
-					.catch( apiError => {
-						console.log('apiError', apiError)
-					});
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/68`, 68)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/66`, 66)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/64`, 64)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/60`, 60)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/57`, 57)
+				
 				},
 			//
 		}

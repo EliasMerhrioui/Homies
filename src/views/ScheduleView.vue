@@ -2,35 +2,50 @@
 	<div 
 		class="schedule-view-component"
 	>
-		<div class="columns has-text-centered">
-			<div 
-				class="column is-one-third" 
-				v-if="article['38']" 
+		<div class="content">
+			
+			<div
+				v-if="article['20']"
 			>
-				<div class="box">
-					<h2 class="title is-size-6" v-html="article['38'].title.rendered"/>
-					<div v-html="article['38'].content.rendered"/>
-				</div>
-			</div>	
-			<div 
-				class="column is-one-third" 
-				v-if="article['35']" 
-			>
-				<div class="box">
-					<h2 v-html="article['35'].title.rendered"/>
-					<div v-html="article['35'].content.rendered"/>
-				</div>
-			</div>	
-			<div 
-				class="column is-one-third" 
-				v-if="article['32']" 
-			>
-				<div class="box">
-					<h2 v-html="article['32'].title.rendered"/>
-					<div v-html="article['32'].content.rendered"/>
-				</div>
-			</div>			
-		</div>
+				<div class="title" v-html="article['20'].title.rendered"/>
+				<div class="contentHowToCome" v-html="article['20'].content.rendered"/>
+			</div>
+			
+			<!-- Horaires du FLAG -->
+			<div class="columns has-text-centered">
+				<div 
+					class="column is-one-third" 
+					v-if="article['38']" 
+				>
+					<div class="box">
+						<h2 class="subtitle" v-html="article['38'].title.rendered"/>
+						<div v-html="article['38'].content.rendered"/>
+					</div>
+				</div>	
+
+				<!-- Horaires des JUNIOR & CADET -->
+				<div 
+					class="column is-one-third" 
+					v-if="article['35']" 
+				>
+					<div class="box">
+						<h2 class="subtitle" v-html="article['35'].title.rendered"/>
+						<div v-html="article['35'].content.rendered"/>
+					</div>
+				</div>	
+
+				<!-- Horaires des SENIOR -->
+				<div 
+					class="column is-one-third" 
+					v-if="article['32']" 
+				>
+					<div class="box">
+						<h2 class="subtitle" v-html="article['32'].title.rendered"/>
+						<div v-html="article['32'].content.rendered"/>
+					</div>
+				</div>			
+			</div>
+		</div>	
 	</div>
 </template>
 
@@ -52,6 +67,7 @@
 							38: undefined,
 							35: undefined,
 							32: undefined,
+							20: undefined,
 						}	
 					
 					}
@@ -99,6 +115,7 @@
 					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/38`, 38)
 					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/32`, 32)
 					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/35`, 35)
+					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/pages/20`, 20)
 				},
 			//
 		}
