@@ -33,9 +33,9 @@
 				<router-link to="/teams" class="navbar-link">TEAMS</router-link>
 			
 			<div class="navbar-dropdown">
-				<router-link to="/teams/senior" class="navbar-item">SENIOR</router-link>
+				<!-- <router-link to="/teams/senior" class="navbar-item">SENIOR</router-link>
 				<router-link to="/teams/junior" class="navbar-item">JUNIOR</router-link>
-				<router-link to="/teams/flag-mixte" class="navbar-item">FLAG MIXTE</router-link> 
+				<router-link to="/teams/flag-mixte" class="navbar-item">FLAG MIXTE</router-link>  -->
 			</div>
 			</div>
 			

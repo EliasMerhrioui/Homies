@@ -2,7 +2,10 @@
 	<div 
 		class="teams-view-component"
 	>
-		<div class="content">
+		<div 
+			v-if="isLoaded"
+			class="content"
+		>
 			<!-- Première columns (SENIOR) -->
 			<div class="columns has-text-centered is-vcentered">
 				<!-- team senior image -->
@@ -23,10 +26,16 @@
 						
 						<div class="columns is-mobile">
 							<div class="column is-half">
-								<div v-html="article['172'].content.rendered"/>
+								<div 
+									v-if="article['172']"
+									v-html="article['172'].content.rendered"
+								/>
 							</div>
 							<div class="column is-half">
-								<div v-html="article['176'].content.rendered"/>
+								<div 
+									v-if="article['176']"
+									v-html="article['176'].content.rendered"
+								/>
 							</div>
 						</div>
 					</div>
@@ -45,10 +54,16 @@
 
 						<div class="columns is-mobile">
 							<div class="column is-half">
-								<div v-html="article['172'].content.rendered"/>
+								<div 
+									v-if="article['172']"
+									v-html="article['172'].content.rendered"
+								/>
 							</div>
 							<div class="column is-half">
-								<div v-html="article['174'].content.rendered"/>
+								<div 
+									v-if="article['174']"
+									v-html="article['174'].content.rendered"
+								/>
 							</div>
 						</div>
 					</div>
@@ -75,10 +90,16 @@
 
 						<div class="columns is-mobile">
 							<div class="column is-half">
-								<div v-html="article['172'].content.rendered"/>
+								<div 
+									v-if="article['172']"
+									v-html="article['172'].content.rendered"
+								/>
 							</div>
 							<div class="column is-half">
-								<div v-html="article['178'].content.rendered"/>
+								<div 
+									v-if="article['178']"
+									v-html="article['178'].content.rendered"
+								/>
 							</div>
 						</div>
 					</div>
@@ -117,14 +138,17 @@
 					172: undefined, // NOUS REJOINDRE
 					174: undefined, // CALENDRIER JEUNE
 					178: undefined, // CALENDRIER FLAG
-					176: undefined, // CALENDRIER SENIOR
-				}
+					176: undefined, // CALENDRIER SENIOR*
+				},
+				
+				isLoaded: false
 			}
 		},
 		
 		methods: {
-			fetchMethod:function(path, id){
-					fetch(path, {
+			fetchMethods:function(path, id){
+				return new Promise((resolve, reject) => {
+					fetch("https://homies.v-info.info/wp-json/wp/v2/"+path+"/"+id, {
 					method: 'GET'
 					})
 					.then( apiResponse => {
@@ -132,28 +156,48 @@
 						else{ throw apiResponse } 
 					})
 					.then( jsonResponse => {
-						this.article[id] = jsonResponse
-						console.log(this.article);
+						return resolve(jsonResponse)
 					})
 					.catch( apiError => {
-						console.log('apiError', apiError)
+						return reject(apiError)
 					});
-			}
+				});
+			},
 		},
 		
-		created: function(){},
+		created: function(){
+
+
+		},
 		
-		mounted: function(){
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/168`, 168)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/166`, 166)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/162`, 162)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/160`, 160)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/158`, 158)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/156`, 156)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/172`, 172)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/174`, 174)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/176`, 176)
-			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/178`, 178)
+		mounted: async function(){
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/168`, 168)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/166`, 166)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/162`, 162)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/160`, 160)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/158`, 158)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/156`, 156)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/172`, 172)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/174`, 174)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/176`, 176)
+			// this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/178`, 178)
+			
+			this.article[168] = await this.fetchMethods(`posts`, 168);
+			this.article[166] = await this.fetchMethods(`posts`, 166);
+			this.article[162] = await this.fetchMethods(`posts`, 162);
+			this.article[160] = await this.fetchMethods(`posts`, 160);
+			this.article[158] = await this.fetchMethods(`posts`, 158);
+			this.article[156] = await this.fetchMethods(`posts`, 156);
+			this.article[172] = await this.fetchMethods(`posts`, 172);
+			this.article[174] = await this.fetchMethods(`posts`, 174);
+			this.article[176] = await this.fetchMethods(`posts`, 176);
+			this.article[178] = await this.fetchMethods(`posts`, 178);
+			this.isLoaded = true;
+			
+			
+			console.log(this.article)
+			
+		
 		},
 	}
 </script>
