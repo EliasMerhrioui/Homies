@@ -13,7 +13,7 @@ Imports
 Definition and export
 */
     export default createStore({
-        // Add store modules
+        // ajout des modules dans le store
         modules: {
             crud,
             ui,

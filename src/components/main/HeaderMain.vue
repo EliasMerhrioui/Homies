@@ -2,16 +2,20 @@
 	<header 
 		class="header-main-component"
 	>
+
+	<!-- Navigation gérer par bulma -->
 	<nav class="navbar" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
-			<a role="button" class="navbar-burger" :class ="{ 'is-active' : isActive }" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" @click ="isActive = !isActive">
+			<a role="button" class="navbar-burger" :class ="{ 'is-active' : isActive }" aria-label="menu" aria-expanded="false" data-target="navbarHomies" @click ="isActive = !isActive">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
+				
+
 			</a>
 		</div>
 		
-		<div id="navbarBasicExample" class="navbar-menu" :class=" {'is-active': isActive}">
+		<div id="navbarHomies" class="navbar-menu" :class=" {'is-active': isActive}">
 		<div class="navbar-start">
 			<div class="navbar-item has-dropdown is-hoverable">
 				<router-link to="/" class="navbar-link">LES HOMIES</router-link>
@@ -29,15 +33,15 @@
 				<router-link to="/teams" class="navbar-link">TEAMS</router-link>
 			
 			<div class="navbar-dropdown">
-				<!-- <router-link to="/teams/senior" class="navbar-item">SENIOR</router-link>
+				<router-link to="/teams/senior" class="navbar-item">SENIOR</router-link>
 				<router-link to="/teams/junior" class="navbar-item">JUNIOR</router-link>
-				<router-link to="/teams/flag-mixte" class="navbar-item">FLAG MIXTE</router-link> -->
+				<router-link to="/teams/flag-mixte" class="navbar-item">FLAG MIXTE</router-link> 
 			</div>
 			</div>
 			
 			<router-link to="/" class="navbar-item"><img src="@/assets/logo-homies.png" alt=""></router-link>
 
-			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarHomies">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
@@ -123,9 +127,7 @@
 						}
 					})
 				},
-			//
 		}
-	//
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
 		class="schedule-view-component"
 	>
 		<div class="content">
-			
+			<!-- Titre (LES HORAIRES) + Contenu (PAGE 20) -->
 			<div
 				v-if="article['20']"
 			>
@@ -54,73 +54,53 @@
 	/* eslint-disable no-unused-vars */
 	/* eslint-disable no-mixed-spaces-and-tabs */
 
-		export default {
-			// [VUE] Component name
-			name: 'ScheduleView',
+	export default {
+		name: 'ScheduleView',
+		computed: {},
+	
+		data(){
+			return {
+				article: { // Paramètre pour API
+					38: undefined, //Horaires du FLAG
+					35: undefined, //Horaires des JUNIOR & CADET
+					32: undefined, //Horaires des SENIOR
+					20: undefined, //Titre (LES HORAIRES) + Contenu 
+				}	
+			}
+		},
 
-		
-				computed: {},
-			
-				data(){
-					return {
-						article: {
-							38: undefined,
-							35: undefined,
-							32: undefined,
-							20: undefined,
-						}	
-					
-					}
-				},
-			//
-
-			/*
-				[VUE] Methods => https://bit.ly/3GdqmXg
-				Used to add methods in Vue.js component
-			*/
-                methods: {
-					fetchMethod:function(path, id){
-						fetch(path, {
-						method: 'GET'
-						})
-						.then( apiResponse => {
-							if( apiResponse.ok ){ return apiResponse.json() }
-							else{ throw apiResponse } 
-						})
-						.then( jsonResponse => {
-							this.article[id] = jsonResponse
-							console.log(this.article);
-						})
-						.catch( apiError => {
-							console.log('apiError', apiError)
-						});
-						
-					}
-				},
-            //
-
-			/*
-				[VUE] Hooks => https://vuejs.org/api/options-lifecycle.html
-				Called after the instance has finished processing all state-related options.
-			*/
-				created: function(){},
-			//
-
-			/*
-				[VUE] Hooks => https://vuejs.org/api/options-lifecycle.html
-				Called after the component has been mounted.
-			*/
-
-				mounted: function(){
-					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/38`, 38)
-					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/32`, 32)
-					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/35`, 35)
-					this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/pages/20`, 20)
-				},
-			//
-		}
-	//
+		methods: {
+			//La methods "fetchMethod" permet de GET plusieurs lien d'une API 
+			fetchMethod:function(path, id){
+				fetch(path, {
+				method: 'GET'
+				})
+				.then( apiResponse => {
+					if( apiResponse.ok ){ return apiResponse.json() }
+					else{ throw apiResponse } 
+				})
+				.then( jsonResponse => {
+					this.article[id] = jsonResponse
+					console.log(this.article);
+				})
+				.catch( apiError => {
+					console.log('apiError', apiError)
+				});
+				
+			}
+		},
+	
+		created: function(){},
+	
+		//Lien des API pour la methode fetchMethod
+		mounted: function(){
+			//Récupérer le contenu stocker dans les posts numéro 38,32,35 et la page 20 de l'api de wordpress 
+			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/38`, 38)
+			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/32`, 32)
+			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/posts/35`, 35)
+			this.fetchMethod(`https://homies.v-info.info/wp-json/wp/v2/pages/20`, 20)
+		},
+	}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

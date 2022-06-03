@@ -4,8 +4,8 @@
 	>
 		<!-- TITRE -->
 		<h1
-			v-if="pagesTitle"
-			v-html="pagesTitle"
+			v-if="pagesTitle" 
+			v-html="pagesTitle" 
 		/>
 
 		<!-- CONTENU DE LA PAGES -->
@@ -14,17 +14,14 @@
 			v-html="pagesContent"
 		/>
 
-		
-			<YouTube 
+		<!-- VIDEO YOUTUBE -->
+		<YouTube 
 			class="youtubeVideoHomeView"
 			v-if="videoId"
 			:src="`https://www.youtube.com/watch?v=${videoId}`"
 			@ready="onReady"
-			ref="youtube" />
-		
-			
-			<!-- VIDEO YOUTUBE -->
-			
+			ref="youtube" 
+		/>	
 	</div>
 </template>
 
@@ -33,79 +30,60 @@
 	/* eslint-disable no-unused-vars */
 	/* eslint-disable no-mixed-spaces-and-tabs */
 	
-		export default {
-			name: 'HomeView',
+	export default {
+		name: 'HomeView',
 
-			
-			components: { 
+		components: { 
 
+		},
+		
+		computed: {
+
+		},
+		
+			data(){
+				return {
+					// Paramètre pour API
+					pagesContent: undefined,
+					pagesTitle: undefined,
+					videoId: undefined,
+				}
 			},
-			
-			computed: {
-
+		
+			methods: {
+				//Sert à mettre en lecture la vidéo dès le chargement de la page
+				onReady() {
+					this.$refs.youtube.playVideo()
+				},
 			},
-			
-				data(){
-					return {
-						pagesContent: undefined,
-						pagesTitle: undefined,
-						videoId: undefined,
-						
-					}
-				},
-			
-                methods: {
-					// Sert à play la vidéo
-					onReady() {
-						this.$refs.youtube.playVideo()
-					},
-				},
-            //
-
-			/*
-				[VUE] Hooks => https://vuejs.org/api/options-lifecycle.html
-				Called after the instance has finished processing all state-related options.
-			*/
-				created: function(){
-					// Subscribe to state mutation
-					this.$store.subscribe( (mutation) => {
-						if( mutation.type === 'userinfos' ){
-							if( this.$store.getters.userinfos !== null ){
-								this.cmpUserinfo = this.$store.getters.userinfos
-							}
-							else{
-								this.cmpUserinfo = undefined
-							}
-						}
-					})
-				},
-			//
-
-			/*
-				[VUE] Hooks => https://vuejs.org/api/options-lifecycle.html
-				Called after the component has been mounted.
-			*/
-				mounted: function(){
-					fetch( `http://homies.v-info.info/wp-json/wp/v2/pages/8`, {
-                    method: 'GET'
-					})
-					.then( apiResponse => {
-						if( apiResponse.ok ){ return apiResponse.json() }
-						else{ throw apiResponse } 
-					})
-					.then( jsonResponse => {
-						console.log(jsonResponse)
-						this.pagesContent = jsonResponse.content.rendered
-						this.pagesTitle = jsonResponse.title.rendered
-						this.videoId = jsonResponse.acf.videoyoutube
-					})
-					.catch( apiError => {
-						console.log('apiError', apiError)
-					});
-				},
-			//
-		}
-	//
+		
+			created: function(){
+				
+			},
+	
+			mounted: function(){
+				//Récupérer le contenu stocker dans la pages numéro 8 de l'api de wordpress 
+				
+				//lien de l'api + récupération en GET
+				fetch( `http://homies.v-info.info/wp-json/wp/v2/pages/8`, {
+				method: 'GET'
+				})
+				.then( apiResponse => {
+					if( apiResponse.ok ){ return apiResponse.json() }
+					else{ throw apiResponse } 
+				})
+				.then( jsonResponse => {
+					console.log(jsonResponse)
+					// On récupere ici les propriété de l'objet "content" pour récupérer le contenu "rendered"   
+					this.pagesContent = jsonResponse.content.rendered
+					this.pagesTitle = jsonResponse.title.rendered
+					this.videoId = jsonResponse.acf.videoyoutube
+				})
+				.catch( apiError => {
+					console.log('apiError', apiError)
+				});
+			},
+	}
 </script>
 
 <style scoped>

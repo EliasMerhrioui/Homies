@@ -3,8 +3,7 @@
 
 export default{
     /* 
-        [STORE] State => https://bit.ly/3ua8avj
-        Define store private states
+        Définir les états privés des magasins
     */
         state: {
             userinfos: JSON.parse(window.localStorage.getItem('userinfos')) || null,
@@ -12,8 +11,7 @@ export default{
     //
 
     /* 
-        [STORE] Getters => https://bit.ly/3ua8avj
-        Define methods to export state value
+        Définir des méthodes pour exporter la valeur de l’état
     */
         getters: {
             userinfos: (state) => state.userinfos
@@ -21,8 +19,7 @@ export default{
     //
 
     /* 
-        [STORE] Muttation => https://bit.ly/3ua8avj
-        Define setters to update state value
+        Définir les setters pour mettre à jour la valeur d’état
     */
         mutations: {
             userinfos( state, payload ){ state.userinfos = payload.data }
@@ -30,13 +27,11 @@ export default{
     //
 
     /* 
-        [STORE] Actions => https://bit.ly/3ua8avj
-        Define dispatchers to call state mutations
+        Définir les répartiteurs pour appeler les mutations d’état
     */
         actions: {
             setUiSate( { dispatch, commit, state }, data ){
                 commit( data.mutation, { data: data.value } )
             }
         }
-    //
 }

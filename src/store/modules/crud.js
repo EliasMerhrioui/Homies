@@ -3,8 +3,7 @@
 
 export default{
     /* 
-        [STORE] State => https://bit.ly/3ua8avj
-        Define store private states
+        Définir les états privés des magasins
     */
         state: {
             fetchresponse: undefined,
@@ -12,8 +11,7 @@ export default{
     //
 
     /* 
-        [STORE] Getters => https://bit.ly/3ua8avj
-        Define methods to export state value
+        Définir des méthodes pour exporter la valeur de l’état
     */
         getters: {
             fetchresponse: (state) => state.fetchresponse,
@@ -21,17 +19,14 @@ export default{
     //
 
     /* 
-        [STORE] Muttation => https://bit.ly/3ua8avj
-        Define setters to update state value
+        Définir les setters pour mettre à jour la valeur d’état
     */
         mutations: {
             fetchresponse( state, payload ){ state.fetchresponse = payload.data },
         },
-    //
-
     /* 
         [STORE] Actions => https://bit.ly/3ua8avj
-        Define dispatchers to call state mutations
+        Définir les répartiteurs pour appeler les mutations d’état
     */
         actions: {
             getOperator( { dispatch, commit, state }, id ){
@@ -44,7 +39,7 @@ export default{
                 })
                 .then( jsonResponse => {
                     console.log(jsonResponse)
-                    // Update 'fetchresponse' state
+                    // Mettre à jour l'état de 'fetchresponse' 
                     commit( 'fetchresponse', { data: {
                         ok: true,
                         from: 'getOperator',
@@ -57,5 +52,4 @@ export default{
                 });
             }
         }
-    //
 }
