@@ -44,7 +44,7 @@
 		created: function(){},
 	
 		mounted: function(){
-			fetch( `http://homies.local/wp-json/wp/v2/pages/969`, {
+			fetch( `http://homies.v-info.info/wp-json/wp/v2/pages/18`, {
 			method: 'GET'
 			})
 			.then( apiResponse => {

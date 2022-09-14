@@ -10,8 +10,6 @@
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
-				
-
 			</a>
 		</div>
 		
@@ -40,28 +38,16 @@
 			</div>
 			
 			<router-link to="/" class="navbar-item"><img src="@/assets/logo-homies.png" alt=""></router-link>
-
-			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarHomies">
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-			</a>
-
-
-			<div class="navbar-menu">
+			
+			<div class="navbar-end">
 				<router-link to="/how-to-sign" class="navbar-item">DOSSIER D'INSCRIPTION</router-link>
 				<router-link to="/shop" class="navbar-item">BOUTIQUE</router-link>
 				<router-link to="/contact-us" class="navbar-item">CONTACT</router-link>
 			</div>
 		</div>
-  </div>
-</nav>
-		
-		
-		
-		
-		
-		
+	</div>
+	</nav>
+
 	</header>
 </template>
 
@@ -97,7 +83,6 @@
 			*/
 				data(){
 					return {
-						cmpUserinfo: this.$store.getters.userinfos,
 						isActive: this.$store.getters.themeclass
 					}
 				},

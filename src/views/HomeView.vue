@@ -63,7 +63,6 @@
 	
 			mounted: function(){
 				//Récupérer le contenu stocker dans la pages numéro 8 de l'api de wordpress 
-				
 				//lien de l'api + récupération en GET
 				fetch( `http://homies.v-info.info/wp-json/wp/v2/pages/8`, {
 				method: 'GET'
